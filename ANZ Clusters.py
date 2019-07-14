@@ -81,13 +81,16 @@ cor = wh1.corr() #Calculate the correlation of the above variables
 sns.heatmap(cor, square = False, robust = True) #Plot the correlation as heat map
 
 
-# In[161]:
+# In[199]:
 
 
-wh1.dropna()
+wh2 = wh[[
+           'service.class.code', 'birth_decade',  'travelseason',
+          'trip.start.port.code', 'fare.set', 'age.generation.appx'
+        ]] #Subsetting the data
 
 
-# In[162]:
+# In[196]:
 
 
 wh1.head()
@@ -145,6 +148,34 @@ def doKmeans(X, nclust=2):
 clust_labels, cent = doKmeans(wh1, 2)
 kmeans = pd.DataFrame(clust_labels)
 wh1.insert((wh1.shape[1]),'kmeans',kmeans)
+
+
+# In[193]:
+
+
+
+wh1 = wh[['business.leisure', 'days.booked.before.departure', 
+           'service.class.code', 'birth_decade',  
+          'trip.start.port.code', 'fare.set',
+          'trip.start.port.region.num'
+         ]] #Subsetting the data
+cor = wh1.corr() #Calculate the correlation of the above variables
+sns.pairplot(cor)
+
+
+# In[194]:
+
+
+wh1 = wh[['business.leisure', 'days.booked.before.departure', 
+           'service.class.code', 'birth_decade',  
+          'trip.start.port.code', 'fare.set',
+          'trip.start.port.region.num'
+         ]] #Subsetting the data
+cor = wh1.corr() #Calculate the correlation of the above variables
+
+g = sns.PairGrid(cor)
+g.map_diag(sns.kdeplot)
+g.map_offdiag(sns.kdeplot, n_levels=6);
 
 
 # In[ ]:
